@@ -1,0 +1,102 @@
+import { defineField, defineType } from 'sanity'
+
+export const siteSettings = defineType({
+  name: 'siteSettings',
+  title: 'Настройки сайта',
+  type: 'document',
+  groups: [
+    { name: 'general', title: 'Основное' },
+    { name: 'philosophy', title: 'Секция "О себе"' },
+    { name: 'social', title: 'Социальные сети' },
+    { name: 'sections', title: 'Заголовки секций' },
+    { name: 'seo', title: 'SEO' },
+  ],
+  fields: [
+    defineField({
+      name: 'authorName',
+      title: 'Имя автора',
+      type: 'string',
+      group: 'general',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'photo',
+      title: 'Фото автора',
+      type: 'image',
+      group: 'general',
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: 'philosophyTitle',
+      title: 'Заголовок секции',
+      type: 'string',
+      group: 'philosophy',
+      initialValue: 'Философия',
+    }),
+    defineField({
+      name: 'philosophyText',
+      title: 'Текст о себе',
+      type: 'array',
+      group: 'philosophy',
+      of: [{ type: 'block' }],
+    }),
+    defineField({
+      name: 'philosophyLinkText',
+      title: 'Текст ссылки',
+      type: 'string',
+      group: 'philosophy',
+      initialValue: 'Читать далее',
+    }),
+    defineField({
+      name: 'philosophyLinkUrl',
+      title: 'URL ссылки',
+      type: 'string',
+      group: 'philosophy',
+    }),
+    defineField({
+      name: 'telegram',
+      title: 'Telegram',
+      type: 'url',
+      group: 'social',
+    }),
+    defineField({
+      name: 'instagram',
+      title: 'Instagram',
+      type: 'url',
+      group: 'social',
+    }),
+    defineField({
+      name: 'vk',
+      title: 'ВКонтакте',
+      type: 'url',
+      group: 'social',
+    }),
+    defineField({
+      name: 'youtube',
+      title: 'YouTube',
+      type: 'url',
+      group: 'social',
+    }),
+    defineField({
+      name: 'coursesTitle',
+      title: 'Заголовок секции "Курсы"',
+      type: 'string',
+      group: 'sections',
+      initialValue: 'Курсы',
+    }),
+    defineField({
+      name: 'seoDescription',
+      title: 'Описание сайта (SEO)',
+      type: 'text',
+      group: 'seo',
+      rows: 2,
+    }),
+    defineField({
+      name: 'seoImage',
+      title: 'OG-изображение',
+      type: 'image',
+      group: 'seo',
+      description: 'Превью при расшаривании в соцсетях (1200×630px)',
+    }),
+  ],
+})

@@ -1,0 +1,37 @@
+{
+  "name": "kazimirova",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@portabletext/react": "^3.1.0",
+    "@sanity/client": "^6.21.3",
+    "@sanity/image-url": "^1.0.2",
+    "@sanity/schema": "^5.25.0",
+    "@sanity/vision": "^5.25.0",
+    "autoprefixer": "^10.5.0",
+    "next": "^14.2.5",
+    "next-sanity": "^8.5.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-is": "^19.2.6",
+    "sanity": "^3.55.0",
+    "styled-components": "^6.1.13"
+  },
+  "devDependencies": {
+    "@types/minimatch": "^6.0.0",
+    "@types/node": "^20.19.41",
+    "@types/react": "^18.3.28",
+    "@types/react-dom": "^18.3.7",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^14.2.5",
+    "postcss": "^8.5.14",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.9.3"
+  }
+}
