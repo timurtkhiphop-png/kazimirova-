@@ -16,7 +16,8 @@
     "types": ["node"],
     "forceConsistentCasingInFileNames": false,
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@/sanity/*": ["./Sanity/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
