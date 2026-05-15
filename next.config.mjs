@@ -15,6 +15,8 @@ const nextConfig = {
   },
   webpack(config) {
     config.resolve.alias['@/sanity'] = path.resolve(__dirname, 'Sanity')
+    // для прямых импортов без алиаса: './sanity/...' из корня
+    config.resolve.alias[path.resolve(__dirname, 'sanity')] = path.resolve(__dirname, 'Sanity')
     return config
   },
 }
