@@ -14,9 +14,10 @@ const nextConfig = {
     ],
   },
   webpack(config) {
-    config.resolve.alias['@/sanity'] = path.resolve(__dirname, 'Sanity')
-    // для прямых импортов без алиаса: './sanity/...' из корня
-    config.resolve.alias[path.resolve(__dirname, 'sanity')] = path.resolve(__dirname, 'Sanity')
+    config.resolve.alias['@/sanity/client'] = path.resolve(__dirname, 'Sanity/client.ts')
+    config.resolve.alias['@/sanity/queries'] = path.resolve(__dirname, 'Sanity/queries.ts')
+    config.resolve.alias['@/sanity/image'] = path.resolve(__dirname, 'Sanity/image.ts')
+    config.resolve.alias['@/sanity/env'] = path.resolve(__dirname, 'Sanity/env.ts')
     return config
   },
 }
