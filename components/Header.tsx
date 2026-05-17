@@ -38,7 +38,6 @@ export function Header({ authorName = 'Юлия Казимирова', telegram,
           {/* Десктоп навигация */}
           <nav className="hidden md:flex items-center gap-10">
             {[
-              { href: '/#about', label: 'О себе' },
               { href: '/#courses', label: 'Курсы' },
             ].map(({ href, label }) => (
               <Link key={href} href={href}
@@ -80,7 +79,6 @@ export function Header({ authorName = 'Юлия Казимирова', telegram,
         ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
 
         {[
-          { href: '/#about', label: 'О себе' },
           { href: '/#courses', label: 'Курсы' },
         ].map(({ href, label }, i) => (
           <Link key={href} href={href} onClick={close}

@@ -26,10 +26,11 @@ export function CourseList({ courses, title = 'Курсы' }: CourseListProps) {
       {/* ── Остальные ── */}
       {rest.length > 0 && (
         <div className="container-site py-20 md:py-28">
-          <div className={`grid gap-x-8 md:gap-x-16 gap-y-20
+          <div className={`grid
             ${rest.length === 1 ? 'grid-cols-1 max-w-sm' :
-              rest.length === 2 ? 'grid-cols-2' :
-              'grid-cols-2 lg:grid-cols-3'}`}>
+              rest.length === 2 ? 'grid-cols-1 sm:grid-cols-2' :
+              'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}
+            gap-y-6 sm:gap-y-20 sm:gap-x-8 md:gap-x-16`}>
             {rest.map((course, i) => (
               <CourseCard key={course._id} course={course} index={featured ? i + 1 : i} />
             ))}

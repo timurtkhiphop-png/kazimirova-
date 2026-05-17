@@ -10,6 +10,7 @@ import { urlFor } from '@/sanity/image'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { BenefitsAccordion } from '@/components/BenefitsAccordion'
+import { MobileStickyBar } from '@/components/MobileStickyBar'
 
 export const revalidate = 60
 
@@ -89,55 +90,59 @@ export default async function CoursePage({ params }: PageProps) {
 
       <main className="bg-cream">
 
-        {/* ── Hero — всегда на всю ширину ── */}
-        <div className="relative overflow-hidden bg-dark">
+        {/* ── Hero ── */}
+        <div className="relative overflow-hidden bg-dark h-[72vh] md:h-[80vh]">
           {heroImageUrl && (
             <img src={heroImageUrl} alt={course.title}
-              style={{ width: '100%', height: 'auto', display: 'block' }} />
+              className="absolute inset-0 w-full h-full object-cover object-center" />
           )}
 
-          {/* Усиленный градиент для читаемости */}
           <div className="absolute inset-0"
-            style={{ background: 'linear-gradient(to top, rgba(59,26,35,0.97) 0%, rgba(59,26,35,0.6) 35%, rgba(59,26,35,0.15) 70%, transparent 100%)' }} />
+            style={{ background: 'linear-gradient(to top, rgba(59,26,35,0.97) 0%, rgba(59,26,35,0.65) 40%, rgba(59,26,35,0.2) 75%, transparent 100%)' }} />
 
-          {/* Текст поверх — прижат к низу */}
-          <div className="absolute bottom-0 left-0 right-0 px-6 md:px-12 lg:px-20 pb-14 md:pb-20">
+          {/* Текст — прижат к низу, с отступом сверху для хедера */}
+          <div className="absolute bottom-0 left-0 right-0 px-6 md:px-12 lg:px-20 pb-10 md:pb-20 pt-24">
             <div className="max-w-screen-xl mx-auto">
 
               {/* Тип курса */}
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-px bg-primary" />
-                <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-primary/80">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-6 h-px bg-primary" />
+                <p className="font-sans text-[9px] tracking-[0.35em] uppercase text-primary/80">
                   {isSubscription ? 'Подписка' : 'Курс'} · Юлия Казимирова
                 </p>
               </div>
 
               {/* Заголовок */}
-              <h1 className="font-serif font-light text-white leading-[0.9] tracking-[-0.02em]
-                             text-[12vw] sm:text-[8vw] md:text-[6vw] lg:text-[5vw] max-w-4xl mb-6">
+              <h1 className="font-serif font-light text-white leading-[0.92] tracking-[-0.02em]
+                             text-[9vw] sm:text-[8vw] md:text-[6vw] lg:text-[5vw]
+                             max-w-4xl mb-5">
                 {course.title}
               </h1>
 
+              {/* Цена + кнопка — на мобиле стек, на десктопе ряд */}
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
 
-              {/* Цена + кнопка прямо в hero */}
-              <div className="flex flex-wrap items-center gap-6">
+                {/* Цена */}
                 <div>
-                  <span className="font-serif text-4xl md:text-5xl text-white leading-none">
-                    {course.price.toLocaleString('ru')} ₽
-                  </span>
-                  {isSubscription && (
-                    <span className="font-sans text-sm text-white/40 ml-2">/мес</span>
-                  )}
-                  {course.oldPrice && (
-                    <span className="font-sans text-sm text-white/25 line-through ml-3">
-                      {course.oldPrice.toLocaleString('ru')} ₽
+                  <div className="flex items-baseline gap-2">
+                    <span className="font-serif text-3xl md:text-5xl text-white leading-none">
+                      {course.price.toLocaleString('ru')} ₽
                     </span>
+                    {isSubscription && (
+                      <span className="font-sans text-xs text-white/40">/мес</span>
+                    )}
+                  </div>
+                  {course.oldPrice && (
+                    <p className="font-sans text-xs text-white/25 line-through mt-1">
+                      {course.oldPrice.toLocaleString('ru')} ₽
+                    </p>
                   )}
                 </div>
 
+                {/* Кнопка — скрыта на мобиле (есть sticky bar), видна на десктопе */}
                 {course.prodamusUrl && (
                   <a href={course.prodamusUrl} target="_blank" rel="noopener noreferrer"
-                    className="group relative inline-flex items-center overflow-hidden
+                    className="hidden sm:inline-flex group relative items-center overflow-hidden
                                border border-white/50 px-10 py-4
                                transition-colors duration-500 hover:border-primary">
                     <span className="absolute inset-0 bg-primary translate-y-full
@@ -279,26 +284,24 @@ export default async function CoursePage({ params }: PageProps) {
           </div>
         </div>
 
-        {/* Мобильная нижняя кнопка */}
-        {course.prodamusUrl && (
-          <div className="md:hidden px-6 pb-12 space-y-4">
-            <a href={course.prodamusUrl} target="_blank" rel="noopener noreferrer"
-              className="group relative flex items-center justify-center overflow-hidden
-                         bg-dark w-full py-5 transition-colors duration-500">
-              <span className="absolute inset-0 bg-primary translate-y-full
-                               transition-transform duration-500 ease-out group-hover:translate-y-0" />
-              <span className="relative font-sans text-[11px] tracking-[0.3em] uppercase text-white z-10">
-                {isSubscription ? 'Оформить подписку' : 'Начать обучение'}
-              </span>
-            </a>
-            <Link href="/#courses"
-              className="font-sans text-[10px] tracking-[0.25em] uppercase text-dark/35
-                         hover:text-primary transition-colors flex items-center justify-center gap-2">
-              ← Все программы
-            </Link>
-          </div>
-        )}
+        {/* Ссылка «все программы» на мобиле */}
+        <div className="md:hidden px-6 pb-28">
+          <Link href="/#courses"
+            className="font-sans text-[10px] tracking-[0.25em] uppercase text-dark/35
+                       hover:text-primary transition-colors flex items-center gap-2">
+            ← Все программы
+          </Link>
+        </div>
       </main>
+
+      {/* Sticky CTA бар — только мобиле */}
+      {course.prodamusUrl && (
+        <MobileStickyBar
+          price={course.price}
+          isSubscription={isSubscription}
+          prodamusUrl={course.prodamusUrl}
+        />
+      )}
 
       <Footer settings={settings} />
     </>

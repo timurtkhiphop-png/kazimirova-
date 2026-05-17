@@ -56,7 +56,7 @@ export function Hero({ data, settings }: HeroProps) {
 
           {/* Фото */}
           {photoUrl && (
-            <div style={{ width: 'min(600px, 80vw)' }}>
+            <div style={{ width: 'min(600px, 92vw)' }}>
 
               {/* Имя над фото */}
               <div className="hero-content-delay text-center mb-4">
@@ -64,7 +64,7 @@ export function Hero({ data, settings }: HeroProps) {
                   Женские практики · Онлайн-курсы
                 </p>
                 <h1 className="font-script leading-[1.1] text-white"
-                    style={{ fontSize: 'clamp(3rem, 9vw, 7rem)' }}>
+                    style={{ fontSize: 'clamp(3rem, 12vw, 7rem)' }}>
                   {firstName} {lastName}
                 </h1>
                 <div className="flex items-center justify-center gap-3 mt-3">
