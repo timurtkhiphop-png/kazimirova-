@@ -2,10 +2,7 @@ import { groq } from 'next-sanity'
 
 export const heroQuery = groq`
   *[_type == "hero"][0] {
-    heading,
-    subheading,
     buttonText,
-    buttonLink,
     backgroundVideo,
     backgroundImage
   }
@@ -49,14 +46,14 @@ export const siteSettingsQuery = groq`
   *[_type == "siteSettings"][0] {
     authorName,
     photo,
-    philosophyTitle,
-    philosophyText,
-    philosophyLinkText,
-    philosophyLinkUrl,
+    heroBio,
     telegram,
     instagram,
     vk,
     youtube,
+    tiktok,
+    email,
+    footerText,
     coursesTitle,
     seoDescription,
     seoImage

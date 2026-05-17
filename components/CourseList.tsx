@@ -15,33 +15,6 @@ export function CourseList({ courses, title = 'Курсы' }: CourseListProps) {
   return (
     <section id="courses" className="bg-cream">
 
-      {/* ── Шапка секции ── */}
-      <div className="container-site pt-28 pb-0">
-        <div className="flex items-end justify-between gap-8 pb-10 border-b border-dark/[0.07]">
-          <div className="flex items-end gap-6">
-            {/* Большой декоративный номер */}
-            <span className="font-serif text-[12vw] md:text-[8vw] font-light text-dark/[0.06]
-                             leading-none select-none -mb-2">
-              {String(courses.length).padStart(2, '0')}
-            </span>
-            <div className="pb-2">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-6 h-px bg-primary" />
-                <p className="label">Программы</p>
-              </div>
-              <h2 className="font-serif text-5xl md:text-6xl text-dark font-light leading-[0.9]
-                             tracking-[-0.02em]">
-                {title}
-              </h2>
-            </div>
-          </div>
-
-          <p className="hidden md:block font-serif italic text-dark/50 text-lg max-w-[220px]
-                        leading-relaxed text-right">
-            Выберите программу, которая резонирует с вами
-          </p>
-        </div>
-      </div>
 
       {/* ── Featured — кинематографичный ── */}
       {featured && (

@@ -9,6 +9,7 @@ import type { Course, SiteSettings } from '@/types'
 import { urlFor } from '@/sanity/image'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+import { BenefitsAccordion } from '@/components/BenefitsAccordion'
 
 export const revalidate = 60
 
@@ -117,12 +118,6 @@ export default async function CoursePage({ params }: PageProps) {
                 {course.title}
               </h1>
 
-              {/* Описание */}
-              {course.shortDescription && (
-                <p className="font-sans text-sm md:text-base text-white/55 max-w-xl leading-relaxed mb-10">
-                  {course.shortDescription}
-                </p>
-              )}
 
               {/* Цена + кнопка прямо в hero */}
               <div className="flex flex-wrap items-center gap-6">
@@ -172,32 +167,9 @@ export default async function CoursePage({ params }: PageProps) {
                 </div>
               )}
 
-              {/* Что входит */}
+              {/* Что входит — аккордеон */}
               {course.benefits && course.benefits.length > 0 && (
-                <div className="mb-16">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-6 h-px bg-primary" />
-                    <p className="label">Программа</p>
-                  </div>
-                  <h2 className="font-serif text-4xl md:text-5xl text-dark font-light
-                                 leading-[0.9] tracking-[-0.02em] mb-12">
-                    Что входит
-                  </h2>
-
-                  <div className="space-y-0">
-                    {course.benefits.map((benefit, i) => (
-                      <div key={i}
-                        className="group flex items-start gap-6 py-6 border-b border-dark/[0.07]
-                                   first:border-t hover:bg-blush/50 transition-colors duration-300 -mx-4 px-4">
-                        <span className="font-serif text-primary/60 text-sm mt-0.5 shrink-0 select-none
-                                         group-hover:text-primary transition-colors duration-300">
-                          {String(i + 1).padStart(2, '0')}
-                        </span>
-                        <p className="font-sans text-[15px] text-dark/70 leading-relaxed">{benefit}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <BenefitsAccordion benefits={course.benefits} />
               )}
 
               {/* Нижний CTA блок */}

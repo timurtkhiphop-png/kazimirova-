@@ -4,7 +4,6 @@ import type { Hero, Course, SiteSettings } from '@/types'
 import { Header } from '@/components/Header'
 import { Hero as HeroSection } from '@/components/Hero'
 import { CourseList } from '@/components/CourseList'
-import { AboutSection } from '@/components/AboutSection'
 import { MarqueeStrip } from '@/components/MarqueeStrip'
 import { Footer } from '@/components/Footer'
 import type { Metadata } from 'next'
@@ -49,9 +48,8 @@ export default async function HomePage() {
         instagram={settings?.instagram}
       />
       <main>
-        <HeroSection data={hero} />
+        <HeroSection data={hero} settings={settings} />
         <MarqueeStrip />
-        <AboutSection settings={settings} />
         <CourseList courses={courses} title={settings?.coursesTitle} />
       </main>
       <Footer settings={settings} />

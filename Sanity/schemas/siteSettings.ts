@@ -5,54 +5,39 @@ export const siteSettings = defineType({
   title: 'Настройки сайта',
   type: 'document',
   groups: [
-    { name: 'general', title: 'Основное' },
-    { name: 'philosophy', title: 'Секция "О себе"' },
-    { name: 'social', title: 'Социальные сети' },
-    { name: 'sections', title: 'Заголовки секций' },
-    { name: 'seo', title: 'SEO' },
+    { name: 'hero', title: '🖼 Hero (главный экран)' },
+    { name: 'social', title: '📱 Социальные сети' },
+    { name: 'contacts', title: '📞 Контакты' },
+    { name: 'seo', title: '🔍 SEO' },
   ],
   fields: [
+    // ── HERO ──
     defineField({
       name: 'authorName',
-      title: 'Имя автора',
+      title: 'Имя автора (отображается в Hero)',
       type: 'string',
-      group: 'general',
+      group: 'hero',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'photo',
-      title: 'Фото автора',
+      title: 'Фото автора (в Hero)',
       type: 'image',
-      group: 'general',
+      group: 'hero',
       options: { hotspot: true },
+      description: 'Главное фото на первом экране сайта',
     }),
     defineField({
-      name: 'philosophyTitle',
-      title: 'Заголовок секции',
-      type: 'string',
-      group: 'philosophy',
-      initialValue: 'Философия',
+      name: 'heroBio',
+      title: 'Подпись под фото (1–2 предложения о себе)',
+      type: 'text',
+      group: 'hero',
+      rows: 2,
+      description: 'Показывается под фотографией в Hero. Коротко и по делу.',
+      validation: (Rule) => Rule.max(200),
     }),
-    defineField({
-      name: 'philosophyText',
-      title: 'Текст о себе',
-      type: 'array',
-      group: 'philosophy',
-      of: [{ type: 'block' }],
-    }),
-    defineField({
-      name: 'philosophyLinkText',
-      title: 'Текст ссылки',
-      type: 'string',
-      group: 'philosophy',
-      initialValue: 'Читать далее',
-    }),
-    defineField({
-      name: 'philosophyLinkUrl',
-      title: 'URL ссылки',
-      type: 'string',
-      group: 'philosophy',
-    }),
+
+    // ── СОЦСЕТИ ──
     defineField({
       name: 'telegram',
       title: 'Telegram',
@@ -78,12 +63,28 @@ export const siteSettings = defineType({
       group: 'social',
     }),
     defineField({
-      name: 'coursesTitle',
-      title: 'Заголовок секции "Курсы"',
-      type: 'string',
-      group: 'sections',
-      initialValue: 'Курсы',
+      name: 'tiktok',
+      title: 'TikTok',
+      type: 'url',
+      group: 'social',
     }),
+
+    // ── КОНТАКТЫ ──
+    defineField({
+      name: 'email',
+      title: 'Email',
+      type: 'string',
+      group: 'contacts',
+    }),
+    defineField({
+      name: 'footerText',
+      title: 'Текст в подвале сайта',
+      type: 'string',
+      group: 'contacts',
+      description: 'Например: Все права защищены · Политика конфиденциальности',
+    }),
+
+    // ── SEO ──
     defineField({
       name: 'seoDescription',
       title: 'Описание сайта (SEO)',

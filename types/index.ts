@@ -32,8 +32,6 @@ export interface Course {
 }
 
 export interface Hero {
-  heading: string
-  subheading?: string
   buttonText?: string
   buttonLink?: string
   backgroundVideo?: string
@@ -43,14 +41,14 @@ export interface Hero {
 export interface SiteSettings {
   authorName: string
   photo?: SanityImage
-  philosophyTitle?: string
-  philosophyText?: PortableTextBlock[]
-  philosophyLinkText?: string
-  philosophyLinkUrl?: string
+  heroBio?: string
   telegram?: string
   instagram?: string
   vk?: string
   youtube?: string
+  tiktok?: string
+  email?: string
+  footerText?: string
   coursesTitle?: string
   seoDescription?: string
   seoImage?: SanityImage

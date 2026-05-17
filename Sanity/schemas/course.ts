@@ -74,8 +74,8 @@ export const course = defineType({
       title: 'Короткое описание',
       type: 'text',
       rows: 2,
-      description: 'Показывается на карточке в списке курсов. До 150 символов.',
-      validation: (Rule) => Rule.max(150),
+      description: 'Показывается на карточке в списке курсов. До 300 символов.',
+      validation: (Rule) => Rule.max(300),
     }),
     defineField({
       name: 'description',

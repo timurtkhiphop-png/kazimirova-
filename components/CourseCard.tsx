@@ -19,29 +19,24 @@ export function CourseCard({ course, featured = false, index = 0 }: CourseCardPr
         .url()
     : null
 
-  /* ── FEATURED — полная ширина, кинематографичный ── */
+  /* ── FEATURED — кинематографичный, полная ширина ── */
   if (featured) {
     return (
       <Link href={`/courses/${course.slug.current}`}
         className="group relative block overflow-hidden">
 
-        {/* Фото */}
-        <div className="relative h-[60vh] md:h-[80vh] w-full overflow-hidden bg-dark/30">
+        <div className="relative h-[60vh] md:h-[78vh] w-full overflow-hidden bg-dark/30">
           {imageUrl ? (
             <Image src={imageUrl} alt={course.title} fill priority
-              className="object-cover object-center transition-transform duration-[1.4s] ease-out group-hover:scale-[1.05]"
+              className="object-cover object-center transition-transform duration-[1.4s] ease-out group-hover:scale-[1.04]"
               sizes="100vw" />
           ) : (
-            <div className="absolute inset-0 bg-gradient-to-br from-dark to-primary/30" />
+            <div className="absolute inset-0" style={{ backgroundColor: '#3B1A23' }} />
           )}
-
-          {/* Градиент */}
-          <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/25 to-transparent" />
-          {/* Боковой градиент */}
-          <div className="absolute inset-0 bg-gradient-to-r from-dark/50 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-dark/85 via-dark/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-dark/40 via-transparent to-transparent" />
         </div>
 
-        {/* Контент поверх снизу */}
         <div className="absolute bottom-0 left-0 right-0 p-8 md:p-14 lg:p-20
                         flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="max-w-2xl">
@@ -63,7 +58,6 @@ export function CourseCard({ course, featured = false, index = 0 }: CourseCardPr
             )}
           </div>
 
-          {/* Цена + кнопка */}
           <div className="flex flex-col items-start md:items-end gap-5 shrink-0">
             <div className="text-left md:text-right">
               <p className="font-serif text-4xl md:text-5xl text-white leading-none">
@@ -82,6 +76,10 @@ export function CourseCard({ course, featured = false, index = 0 }: CourseCardPr
             </span>
           </div>
         </div>
+
+        {/* Нижняя линия-акцент */}
+        <div className="absolute bottom-0 left-0 w-0 h-px bg-primary
+                        transition-all duration-700 group-hover:w-full" />
       </Link>
     )
   }
