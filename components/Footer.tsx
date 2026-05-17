@@ -15,7 +15,7 @@ export function Footer({ settings }: FooterProps) {
 
   const name = settings?.authorName ?? 'Юлия Казимирова'
 
-  const links = [
+  const links: { href: string; label: string; external?: boolean }[] = [
     { href: '/#courses', label: 'Курсы' },
     ...socials.map(s => ({ href: s.url!, label: s.label, external: true })),
   ]
