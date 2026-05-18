@@ -114,15 +114,14 @@ export function Hero({ data, settings, courses = [] }: HeroProps) {
 
               {/* Кнопки курсов */}
               {courses.length > 0 && (
-                <div className="flex flex-wrap justify-center gap-2 mt-6 hero-content-delay2">
+                <div className="flex flex-col gap-3 mt-6 hero-content-delay2 px-2">
                   {courses.map(course => (
                     <Link
                       key={course._id}
                       href={`/courses/${course.slug.current}`}
-                      className="font-sans text-[9px] tracking-[0.25em] uppercase text-white
-                                 border border-white/50 px-4 py-2
-                                 hover:border-primary hover:text-primary
-                                 transition-all duration-300">
+                      className="w-full bg-primary rounded-2xl py-5 px-6
+                                 font-serif text-xl text-white text-center font-normal
+                                 hover:brightness-110 transition-all duration-300">
                       {course.title}
                     </Link>
                   ))}
