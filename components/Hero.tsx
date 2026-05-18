@@ -44,11 +44,16 @@ export function Hero({ data, settings }: HeroProps) {
             className="hidden lg:block hero-bg w-full h-full object-cover object-center" />
         ) : null}
 
-        {/* Градиент */}
+        {/* Тёплый оверлей — сдвигает холодный фиолетовый фон в сторону тёплой бордовой палитры */}
+        <div className="absolute inset-0"
+          style={{ background: 'rgba(90,20,45,0.22)' }} />
+
+        {/* Градиент мобиле: снизу до полного wine-цвета для бесшовного перехода */}
         <div className="absolute inset-0 lg:hidden"
-          style={{ background: 'linear-gradient(to top, rgba(59,26,35,0.85) 0%, rgba(59,26,35,0.5) 35%, rgba(59,26,35,0.15) 65%, rgba(59,26,35,0.05) 100%)' }} />
+          style={{ background: 'linear-gradient(to top, rgba(59,26,35,1) 0%, rgba(59,26,35,0.6) 25%, rgba(59,26,35,0.2) 55%, rgba(59,26,35,0) 100%)' }} />
+        {/* Градиент десктоп */}
         <div className="absolute inset-0 hidden lg:block"
-          style={{ background: 'linear-gradient(to top, rgba(59,26,35,0.55) 0%, rgba(59,26,35,0.15) 50%, rgba(59,26,35,0.05) 100%)' }} />
+          style={{ background: 'linear-gradient(to top, rgba(59,26,35,1) 0%, rgba(59,26,35,0.45) 30%, rgba(59,26,35,0.1) 65%, rgba(59,26,35,0) 100%)' }} />
       </div>
 
       {/* Вертикальный текст слева — только десктоп */}

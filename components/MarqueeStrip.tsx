@@ -19,7 +19,12 @@ export function MarqueeStrip() {
   ]
 
   return (
-    <div className="bg-primary py-3.5 select-none overflow-hidden">
+    <div className="relative bg-primary py-3.5 select-none overflow-hidden">
+      {/* Fade-переходы сверху и снизу — сглаживают стык с героем и блоком курсов */}
+      <div className="absolute top-0 left-0 right-0 h-3 pointer-events-none"
+        style={{ background: 'linear-gradient(to bottom, rgba(59,26,35,0.6), transparent)' }} />
+      <div className="absolute bottom-0 left-0 right-0 h-3 pointer-events-none"
+        style={{ background: 'linear-gradient(to top, rgba(59,26,35,0.6), transparent)' }} />
 
       {/* Мобиле: статичная строка по центру */}
       <div className="flex sm:hidden items-center justify-center gap-3">
