@@ -1,12 +1,14 @@
-import type { Hero as HeroType, SiteSettings } from '@/types'
+import Link from 'next/link'
+import type { Hero as HeroType, SiteSettings, Course } from '@/types'
 import { urlFor } from '@/sanity/image'
 
 interface HeroProps {
   data: HeroType | null
   settings?: SiteSettings | null
+  courses?: Course[]
 }
 
-export function Hero({ data, settings }: HeroProps) {
+export function Hero({ data, settings, courses = [] }: HeroProps) {
   const bgImage = data?.backgroundImage
     ? urlFor(data.backgroundImage).width(1920).url()
     : null
@@ -108,6 +110,23 @@ export function Hero({ data, settings }: HeroProps) {
                                text-white/60">
                   {settings.heroBio}
                 </p>
+              )}
+
+              {/* Кнопки курсов */}
+              {courses.length > 0 && (
+                <div className="flex flex-wrap justify-center gap-2 mt-6 hero-content-delay2">
+                  {courses.map(course => (
+                    <Link
+                      key={course._id}
+                      href={`/courses/${course.slug.current}`}
+                      className="font-sans text-[9px] tracking-[0.25em] uppercase text-white/55
+                                 border border-white/20 px-4 py-2
+                                 hover:border-white/50 hover:text-white
+                                 transition-all duration-300">
+                      {course.title}
+                    </Link>
+                  ))}
+                </div>
               )}
             </div>
           )}

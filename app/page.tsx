@@ -48,7 +48,7 @@ export default async function HomePage() {
         instagram={settings?.instagram}
       />
       <main>
-        <HeroSection data={hero} settings={settings} />
+        <HeroSection data={hero} settings={settings} courses={courses} />
         <MarqueeStrip />
         <CourseList courses={courses} title={settings?.coursesTitle} />
       </main>
