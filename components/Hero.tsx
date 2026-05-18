@@ -69,7 +69,7 @@ export function Hero({ data, settings, courses = [] }: HeroProps) {
       </div>
 
       {/* Основной контент */}
-      <div className="relative z-10 flex flex-col min-h-screen items-center justify-center">
+      <div className="relative z-10 flex flex-col min-h-[115vh] items-center justify-end pb-6">
 
         <div className="relative flex items-end justify-center w-full">
 
