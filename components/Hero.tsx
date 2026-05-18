@@ -114,8 +114,8 @@ export function Hero({ data, settings, courses = [] }: HeroProps) {
 
               {/* Кнопки курсов */}
               {courses.length > 0 && (
-                <div className="flex flex-col gap-3 mt-6 hero-content-delay2 px-2">
-                  {courses.map(course => (
+                <div className="flex flex-col gap-3 mt-6 pb-8 hero-content-delay2 px-2">
+                  {courses.filter(c => c.slug?.current).map(course => (
                     <Link
                       key={course._id}
                       href={`/courses/${course.slug.current}`}

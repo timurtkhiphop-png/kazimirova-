@@ -13,6 +13,7 @@ import { BenefitsAccordion } from '@/components/BenefitsAccordion'
 import { MobileStickyBar } from '@/components/MobileStickyBar'
 
 export const revalidate = 60
+export const dynamicParams = true
 
 interface PageProps {
   params: { slug: string }
