@@ -24,7 +24,7 @@ export const coursesQuery = groq`
 `
 
 export const courseBySlugQuery = groq`
-  *[_type == "course" && slug.current == $slug][0] {
+  *[_type == "course" && isActive == true && slug.current == $slug][0] {
     _id,
     title,
     slug,

@@ -65,29 +65,29 @@ export default async function CoursePage({ params }: PageProps) {
   const ptComponents = {
     block: {
       h2: ({ children }: any) => (
-        <h2 className="font-serif text-3xl md:text-4xl text-dark mt-16 mb-6 leading-tight">{children}</h2>
+        <h2 className="font-serif text-2xl md:text-4xl text-dark mt-12 mb-4 leading-[1.2]">{children}</h2>
       ),
       h3: ({ children }: any) => (
-        <h3 className="font-serif text-2xl text-dark mt-10 mb-3">{children}</h3>
+        <h3 className="font-serif text-xl md:text-3xl text-primary mt-8 mb-2 leading-[1.3]">{children}</h3>
       ),
       blockquote: ({ children }: any) => (
-        <blockquote className="border-l-2 border-primary pl-8 italic text-dark/60 my-8 text-xl font-serif leading-relaxed">
+        <blockquote className="border-l-2 border-primary pl-6 font-serif text-xl md:text-3xl text-dark/60 my-8 leading-[1.5] italic">
           {children}
         </blockquote>
       ),
       normal: ({ children }: any) => (
-        <p className="font-sans text-[16px] text-dark/65 leading-[1.9]">{children}</p>
+        <p className="font-serif text-xl md:text-3xl text-dark/75 leading-[1.5]">{children}</p>
       ),
     },
     list: {
       bullet: ({ children }: any) => (
-        <ul className="space-y-3 my-6 pl-0">{children}</ul>
+        <ul className="space-y-3 my-4 pl-0">{children}</ul>
       ),
     },
     listItem: {
       bullet: ({ children }: any) => (
-        <li className="font-sans text-[15px] text-dark/65 leading-[1.8] flex gap-3">
-          <span className="text-primary mt-1 shrink-0">•</span>
+        <li className="font-serif text-xl md:text-3xl text-dark/75 leading-[1.5] flex gap-3">
+          <span className="text-primary shrink-0 mt-0.5">•</span>
           <span>{children}</span>
         </li>
       ),
@@ -100,46 +100,75 @@ export default async function CoursePage({ params }: PageProps) {
 
   return (
     <>
-      <Header authorName={settings?.authorName} telegram={settings?.telegram} instagram={settings?.instagram} />
+      <Header authorName={settings?.authorName} telegram={settings?.telegram} instagram={settings?.instagram} dark />
 
       <main className="bg-cream">
 
-        {/* ── Hero ── */}
-        <div className="relative overflow-hidden bg-dark h-[72vh] md:h-[80vh]">
+        {/* ── Hero мобиле (< lg): фото + текст под ним ── */}
+        <div className="lg:hidden">
+          {/* Фото: высота по пропорциям изображения — без обрезки и без пустот */}
+          <div className="relative bg-dark mt-[72px]">
+            {heroImageUrl && (
+              <img src={heroImageUrl} alt={course.title}
+                className="w-full h-auto block" />
+            )}
+            <div className="absolute inset-0"
+              style={{ background: 'linear-gradient(to top, rgba(59,26,35,0.75) 0%, rgba(59,26,35,0.1) 50%, transparent 100%)' }} />
+            {/* Лейбл поверх фото */}
+            <div className="absolute bottom-4 left-5 flex items-center gap-2">
+              <div className="w-4 h-px bg-primary" />
+              <p className="font-sans text-[8px] tracking-[0.3em] uppercase text-primary/90">
+                {isSubscription ? 'Подписка' : 'Курс'} · Юлия Казимирова
+              </p>
+            </div>
+          </div>
+
+          {/* Текстовый блок под фото */}
+          <div className="bg-dark px-5 pt-4 pb-6">
+            <h1 className="font-serif font-light text-white leading-[1.05] tracking-[-0.02em]
+                           text-[9vw] mb-3">
+              {course.title}
+            </h1>
+            <div className="flex items-baseline gap-2">
+              <span className="font-serif text-[8vw] text-white leading-none">
+                {course.price.toLocaleString('ru')} ₽
+              </span>
+              {isSubscription && (
+                <span className="font-sans text-xs text-white/40">/мес</span>
+              )}
+            </div>
+            {course.oldPrice && (
+              <p className="font-sans text-xs text-white/25 line-through mt-1">
+                {course.oldPrice.toLocaleString('ru')} ₽
+              </p>
+            )}
+          </div>
+        </div>
+
+        {/* ── Hero десктоп (lg+): полноэкранный ── */}
+        <div className="hidden lg:block relative overflow-hidden bg-dark h-[80vh]">
           {heroImageUrl && (
             <img src={heroImageUrl} alt={course.title}
               className="absolute inset-0 w-full h-full object-cover object-center" />
           )}
-
           <div className="absolute inset-0"
             style={{ background: 'linear-gradient(to top, rgba(59,26,35,0.97) 0%, rgba(59,26,35,0.65) 40%, rgba(59,26,35,0.2) 75%, transparent 100%)' }} />
-
-          {/* Текст — прижат к низу, с отступом сверху для хедера */}
-          <div className="absolute bottom-0 left-0 right-0 px-6 md:px-12 lg:px-20 pb-10 md:pb-20 pt-24">
+          <div className="absolute bottom-0 left-0 right-0 px-12 lg:px-20 pb-20 pt-24">
             <div className="max-w-screen-xl mx-auto">
-
-              {/* Тип курса */}
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-6 h-px bg-primary" />
                 <p className="font-sans text-[9px] tracking-[0.35em] uppercase text-primary/80">
                   {isSubscription ? 'Подписка' : 'Курс'} · Юлия Казимирова
                 </p>
               </div>
-
-              {/* Заголовок */}
               <h1 className="font-serif font-light text-white leading-[0.92] tracking-[-0.02em]
-                             text-[9vw] sm:text-[8vw] md:text-[6vw] lg:text-[5vw]
-                             max-w-4xl mb-5">
+                             text-[8vw] md:text-[6vw] lg:text-[5vw] max-w-4xl mb-5">
                 {course.title}
               </h1>
-
-              {/* Цена + кнопка — на мобиле стек, на десктопе ряд */}
-              <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
-
-                {/* Цена */}
+              <div className="flex items-center gap-6">
                 <div>
                   <div className="flex items-baseline gap-2">
-                    <span className="font-serif text-3xl md:text-5xl text-white leading-none">
+                    <span className="font-serif text-5xl text-white leading-none">
                       {course.price.toLocaleString('ru')} ₽
                     </span>
                     {isSubscription && (
@@ -152,18 +181,15 @@ export default async function CoursePage({ params }: PageProps) {
                     </p>
                   )}
                 </div>
-
-                {/* Кнопка — скрыта на мобиле (есть sticky bar), видна на десктопе */}
                 {course.prodamusUrl && (
                   <a href={course.prodamusUrl} target="_blank" rel="noopener noreferrer"
-                    className="hidden sm:inline-flex group relative items-center overflow-hidden
+                    className="group relative inline-flex items-center overflow-hidden
                                border border-white/50 px-10 py-4
                                transition-colors duration-500 hover:border-primary">
                     <span className="absolute inset-0 bg-primary translate-y-full
                                      transition-transform duration-500 ease-out group-hover:translate-y-0" />
-                    <span className="relative font-sans text-[11px] tracking-[0.3em] uppercase
-                                     text-white z-10">
-                      {isSubscription ? 'Оформить подписку' : 'Начать обучение'}
+                    <span className="relative font-sans text-[11px] tracking-[0.3em] uppercase text-white z-10">
+                      {isSubscription ? 'Оформить подписку' : 'Купить курс'}
                     </span>
                   </a>
                 )}
@@ -173,63 +199,52 @@ export default async function CoursePage({ params }: PageProps) {
         </div>
 
         {/* ── Основной контент ── */}
-        <div className="max-w-screen-xl mx-auto px-6 md:px-12 lg:px-20 py-20 md:py-28">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20">
+        <div className="max-w-screen-xl mx-auto px-5 md:px-12 lg:px-20 py-8 md:py-28">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-20">
 
             {/* Левая колонка — контент */}
             <div className="lg:col-span-7">
 
               {/* Описание */}
               {course.description && (
-                <div className="space-y-5 mb-16">
+                <div className="space-y-4 mb-8 md:mb-16">
                   <PortableText value={course.description} components={ptComponents} />
                 </div>
               )}
 
-              {/* Что входит — аккордеон */}
+              {/* Состав курса */}
               {course.benefits && course.benefits.length > 0 && (
                 <BenefitsAccordion benefits={course.benefits} />
               )}
 
-              {/* Нижний CTA блок */}
+              {/* CTA блок — цена + кнопка */}
               {course.prodamusUrl && (
-                <div className="hidden md:block bg-dark p-10 lg:p-14">
-                  <p className="font-sans text-[9px] tracking-[0.35em] uppercase text-white/30 mb-6">
-                    Готовы начать путь?
-                  </p>
-                  <div className="flex items-end justify-between gap-8">
-                    <div>
-                      <div className="flex items-baseline gap-3 mb-2">
-                        <span className="font-serif text-5xl text-white">
-                          {course.price.toLocaleString('ru')} ₽
-                        </span>
-                        {isSubscription && (
-                          <span className="font-sans text-base text-white/35">/мес</span>
-                        )}
-                      </div>
-                      {course.oldPrice && (
-                        <span className="font-sans text-sm text-white/25 line-through">
-                          {course.oldPrice.toLocaleString('ru')} ₽
-                        </span>
-                      )}
-                      {course.duration && (
-                        <p className="font-sans text-xs text-white/30 mt-3">{course.duration}</p>
+                <div className="rounded-2xl bg-dark px-6 py-7 md:px-10 md:py-9 flex items-center justify-between gap-6 mb-8">
+                  <div>
+                    <p className="font-sans text-[8px] tracking-[0.3em] uppercase text-white/30 mb-3">
+                      {isSubscription ? 'Стоимость подписки' : 'Стоимость курса'}
+                    </p>
+                    <div className="flex items-baseline gap-2">
+                      <span className="font-serif text-4xl md:text-5xl text-white leading-none">
+                        {course.price.toLocaleString('ru')} ₽
+                      </span>
+                      {isSubscription && (
+                        <span className="font-sans text-xs text-white/35">/мес</span>
                       )}
                     </div>
-                    <a href={course.prodamusUrl} target="_blank" rel="noopener noreferrer"
-                      className="group relative inline-flex items-center overflow-hidden shrink-0
-                                 border border-white/30 px-10 py-4
-                                 transition-colors duration-500 hover:border-primary">
-                      <span className="absolute inset-0 bg-primary translate-y-full
-                                       transition-transform duration-500 ease-out group-hover:translate-y-0" />
-                      <span className="relative font-sans text-[11px] tracking-[0.3em] uppercase
-                                       text-white z-10">
-                        {isSubscription ? 'Оформить подписку' : 'Купить курс'}
-                      </span>
-                    </a>
+                    {course.duration && (
+                      <p className="font-sans text-[10px] text-white/30 mt-2">{course.duration}</p>
+                    )}
                   </div>
+                  <a href={course.prodamusUrl} target="_blank" rel="noopener noreferrer"
+                    className="shrink-0 bg-primary rounded-xl px-6 py-3.5
+                               font-sans text-[10px] tracking-[0.2em] uppercase text-white
+                               hover:brightness-110 transition-all duration-300">
+                    {isSubscription ? 'Оформить подписку' : 'Купить курс'}
+                  </a>
                 </div>
               )}
+
             </div>
 
             {/* Правая колонка — сайдбар */}
@@ -298,12 +313,13 @@ export default async function CoursePage({ params }: PageProps) {
           </div>
         </div>
 
-        {/* Ссылка «все программы» на мобиле */}
-        <div className="md:hidden px-6 pb-28">
+        {/* Кнопка «все курсы» на мобиле — над sticky bar */}
+        <div className="lg:hidden px-5 pt-2 pb-32">
           <Link href="/#courses"
-            className="font-sans text-[10px] tracking-[0.25em] uppercase text-dark/35
-                       hover:text-primary transition-colors flex items-center gap-2">
-            ← Все программы
+            className="flex items-center justify-center gap-2 w-full py-4 border border-dark/15
+                       font-sans text-[10px] tracking-[0.25em] uppercase text-dark/40
+                       hover:text-primary hover:border-primary transition-colors duration-300">
+            ← Все курсы
           </Link>
         </div>
       </main>

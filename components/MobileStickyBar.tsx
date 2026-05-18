@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 interface MobileStickyBarProps {
   price: number
@@ -9,21 +9,35 @@ interface MobileStickyBarProps {
 }
 
 export function MobileStickyBar({ price, isSubscription, prodamusUrl }: MobileStickyBarProps) {
-  const [visible, setVisible] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [footerVisible, setFooterVisible] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 280)
+    const onScroll = () => setScrolled(window.scrollY > 280)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  useEffect(() => {
+    const footer = document.querySelector('footer')
+    if (!footer) return
+    const observer = new IntersectionObserver(
+      ([entry]) => setFooterVisible(entry.isIntersecting),
+      { threshold: 0 }
+    )
+    observer.observe(footer)
+    return () => observer.disconnect()
+  }, [])
+
+  const visible = scrolled && !footerVisible
+
   return (
-    <div className={`fixed bottom-0 left-0 right-0 z-50 md:hidden
-                     transition-transform duration-400 ease-out
+    <div className={`fixed bottom-0 left-0 right-0 z-50 lg:hidden
+                     transition-transform duration-300 ease-out
                      ${visible ? 'translate-y-0' : 'translate-y-full'}`}>
-      {/* Тонкая линия-акцент сверху */}
       <div className="h-px bg-primary/60" />
-      <div className="bg-dark flex items-center gap-4 px-5 py-4">
+      <div className="bg-dark flex items-center gap-4 px-5 py-4"
+        style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom))' }}>
         <div className="flex-1 min-w-0">
           <span className="font-serif text-2xl text-white leading-none">
             {price.toLocaleString('ru')} ₽
@@ -33,7 +47,7 @@ export function MobileStickyBar({ price, isSubscription, prodamusUrl }: MobileSt
           )}
         </div>
         <a href={prodamusUrl} target="_blank" rel="noopener noreferrer"
-          className="shrink-0 bg-primary px-7 py-3.5
+          className="shrink-0 bg-primary rounded-lg px-7 py-3.5
                      font-sans text-[10px] tracking-[0.25em] uppercase text-white
                      active:opacity-80 transition-opacity">
           {isSubscription ? 'Оформить' : 'Купить'}

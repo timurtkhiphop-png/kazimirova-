@@ -7,11 +7,10 @@ interface FooterProps {
 
 export function Footer({ settings }: FooterProps) {
   const socials = [
-    { label: 'Telegram', url: settings?.telegram },
-    { label: 'Instagram', url: settings?.instagram },
-    { label: 'ВКонтакте', url: settings?.vk },
-    { label: 'YouTube', url: settings?.youtube },
-  ].filter(s => s.url)
+    { label: 'Instagram', url: settings?.instagram ?? 'https://instagram.com/kazimirova_julia' },
+    { label: 'Telegram',  url: settings?.telegram  ?? 'https://t.me/kazimirova_juliya' },
+    { label: 'YouTube',   url: settings?.youtube   ?? 'https://youtube.com/@kazimirova-julia' },
+  ]
 
   const name = settings?.authorName ?? 'Юлия Казимирова'
 
