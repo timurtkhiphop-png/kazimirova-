@@ -149,7 +149,7 @@ export function Hero({ data, settings, courses = [] }: HeroProps) {
         </div>
 
         {/* Низ */}
-        <div className="absolute bottom-0 left-0 right-0 px-6 md:px-16 lg:px-28 pb-10 flex items-center justify-between">
+        <div className="absolute bottom-0 left-0 right-0 px-6 md:px-16 lg:px-28 pb-10 flex items-center justify-between pointer-events-none">
           <p className="font-sans text-[9px] tracking-[0.3em] uppercase text-white/20">
             Прокрутите вниз
           </p>
