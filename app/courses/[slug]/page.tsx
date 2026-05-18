@@ -79,6 +79,19 @@ export default async function CoursePage({ params }: PageProps) {
         <p className="font-sans text-[16px] text-dark/65 leading-[1.9]">{children}</p>
       ),
     },
+    list: {
+      bullet: ({ children }: any) => (
+        <ul className="space-y-3 my-6 pl-0">{children}</ul>
+      ),
+    },
+    listItem: {
+      bullet: ({ children }: any) => (
+        <li className="font-sans text-[15px] text-dark/65 leading-[1.8] flex gap-3">
+          <span className="text-primary mt-1 shrink-0">•</span>
+          <span>{children}</span>
+        </li>
+      ),
+    },
     marks: {
       strong: ({ children }: any) => <strong className="font-semibold text-dark">{children}</strong>,
       em: ({ children }: any) => <em className="italic text-primary">{children}</em>,
