@@ -21,25 +21,37 @@ export function Hero({ data, settings }: HeroProps) {
   return (
     <section className="relative min-h-screen overflow-hidden" style={{ backgroundColor: '#3B1A23' }}>
 
-      {/* Фоновое изображение */}
+      {/* ── Фон: мобиле — светлый флoral, десктоп — из Sanity ── */}
       <div className="absolute inset-0 overflow-hidden">
+
+        {/* Мобильный фон (до lg) */}
+        <img
+          src="/hero-mobile.jpg"
+          alt=""
+          className="lg:hidden absolute inset-0 w-full h-full object-cover object-center"
+        />
+
+        {/* Десктопный фон (lg+) */}
         {data?.backgroundVideo ? (
           <video autoPlay muted loop playsInline
-            className="hero-bg w-full h-full object-cover"
+            className="hidden lg:block hero-bg w-full h-full object-cover"
             style={{ opacity: 0.9 }}
             poster={bgImage ?? undefined}>
             <source src={data.backgroundVideo} type="video/mp4" />
           </video>
         ) : bgImage ? (
           <img src={bgImage} alt=""
-            className="hero-bg w-full h-full object-cover object-center"
-            style={{ opacity: 1 }} />
+            className="hidden lg:block hero-bg w-full h-full object-cover object-center" />
         ) : null}
-        <div className="absolute inset-0"
+
+        {/* Градиент */}
+        <div className="absolute inset-0 lg:hidden"
+          style={{ background: 'linear-gradient(to top, rgba(59,26,35,0.85) 0%, rgba(59,26,35,0.5) 35%, rgba(59,26,35,0.15) 65%, rgba(59,26,35,0.05) 100%)' }} />
+        <div className="absolute inset-0 hidden lg:block"
           style={{ background: 'linear-gradient(to top, rgba(59,26,35,0.55) 0%, rgba(59,26,35,0.15) 50%, rgba(59,26,35,0.05) 100%)' }} />
       </div>
 
-      {/* Вертикальный текст слева */}
+      {/* Вертикальный текст слева — только десктоп */}
       <div className="hidden lg:flex absolute left-8 top-1/2 -translate-y-1/2 z-10 flex-col items-center gap-5">
         <div className="w-px h-20 bg-white/20" />
         <p style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
@@ -56,10 +68,12 @@ export function Hero({ data, settings }: HeroProps) {
 
           {/* Фото */}
           {photoUrl && (
-            <div style={{ width: 'min(600px, 92vw)' }}>
+            <div className="w-full lg:w-[min(600px,80vw)]">
+
 
               {/* Имя над фото */}
               <div className="hero-content-delay text-center mb-4">
+                {/* Мобиле: тёмный текст, Десктоп: белый */}
                 <p className="font-sans text-[10px] tracking-[0.4em] uppercase mb-2 text-white">
                   Женские практики · Онлайн-курсы
                 </p>
@@ -85,7 +99,8 @@ export function Hero({ data, settings }: HeroProps) {
 
               {/* Подпись под фото */}
               {settings?.heroBio && (
-                <p className="font-sans text-sm text-white/60 leading-relaxed text-center mt-5 max-w-sm mx-auto hero-content-delay2">
+                <p className="font-sans text-sm leading-relaxed text-center mt-5 max-w-sm mx-auto hero-content-delay2
+                               text-white/60">
                   {settings.heroBio}
                 </p>
               )}
@@ -95,10 +110,12 @@ export function Hero({ data, settings }: HeroProps) {
           {/* Если нет фото — просто имя */}
           {!photoUrl && (
             <div className="text-center hero-content-delay px-6">
-              <p className="font-sans text-[9px] tracking-[0.4em] uppercase text-primary/70 mb-6">
+              <p className="font-sans text-[9px] tracking-[0.4em] uppercase mb-6
+                             text-[#3B1A23]/60 sm:text-primary/70">
                 Женские практики · Онлайн-курсы
               </p>
-              <h1 className="font-serif font-light text-white leading-[0.85] tracking-[-0.02em]"
+              <h1 className="font-serif font-light leading-[0.85] tracking-[-0.02em]
+                             text-[#3B1A23] sm:text-white"
                   style={{ fontSize: 'clamp(3rem, 10vw, 8rem)' }}>
                 {firstName}
                 <br />
@@ -115,7 +132,7 @@ export function Hero({ data, settings }: HeroProps) {
           </p>
           <div className="flex flex-col items-center gap-1">
             <div className="w-px h-8 bg-white/15" />
-            <div className="w-1 h-1 bg-primary/60 rounded-full" />
+            <div className="w-1 h-1 rounded-full bg-primary/60" />
           </div>
         </div>
       </div>

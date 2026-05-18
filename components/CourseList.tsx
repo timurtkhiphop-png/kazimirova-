@@ -13,7 +13,7 @@ export function CourseList({ courses, title = 'Курсы' }: CourseListProps) {
   const rest = courses.filter(c => !c.isFeatured)
 
   return (
-    <section id="courses" className="bg-cream">
+    <section id="courses" style={{ backgroundColor: '#3B1A23' }}>
 
 
       {/* ── Featured — кинематографичный ── */}

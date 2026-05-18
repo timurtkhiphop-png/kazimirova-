@@ -92,93 +92,99 @@ export function CourseCard({ course, featured = false, index = 0 }: CourseCardPr
       {/* Обёртка: на мобиле — flex-row, на sm+ — flex-col */}
       <div className="flex sm:flex-col">
 
-        {/* Фото */}
-        <div className="relative overflow-hidden bg-blush shrink-0
-                        w-[38vw] h-[50vw]
-                        sm:w-full sm:h-auto sm:aspect-[3/4]">
-          {imageUrl ? (
-            <Image src={imageUrl} alt={course.title} fill
-              className="object-cover object-center transition-transform duration-[1.1s] ease-out group-hover:scale-[1.06]"
-              sizes="(max-width: 640px) 38vw, 33vw" />
-          ) : (
-            <div className="absolute inset-0 bg-gradient-to-b from-blush to-rose-100
-                            flex items-center justify-center">
-              <span className="font-serif text-4xl text-primary/10">✦</span>
+        {/* ── Мобиле: горизонтальная карточка в рамке (до sm) ── */}
+        <div className="flex sm:hidden border border-white/10 overflow-hidden">
+
+          {/* Фото мобиле */}
+          <div className="relative overflow-hidden shrink-0 w-[38vw] h-[50vw]">
+            {imageUrl ? (
+              <Image src={imageUrl} alt={course.title} fill
+                className="object-cover object-center"
+                sizes="38vw" />
+            ) : (
+              <div className="absolute inset-0" style={{ backgroundColor: '#3B1A23' }} />
+            )}
+          </div>
+
+          {/* Текст мобиле */}
+          <div className="flex-1 px-4 py-3 flex flex-col justify-between border-l border-white/10">
+            <div>
+              <p className="font-sans text-[7px] tracking-[0.35em] uppercase text-white/30 mb-1.5">
+                {isSubscription ? 'Подписка' : 'Курс'}
+              </p>
+              <h3 className="font-serif text-[4.2vw] text-white/85 leading-[1.2] tracking-[-0.01em]">
+                {course.title}
+              </h3>
             </div>
-          )}
-
-          {/* Тип — только на десктопе поверх фото */}
-          <span className="hidden sm:block absolute top-4 left-4 font-sans text-[8px] tracking-[0.3em]
-                           uppercase text-dark/60 bg-white/85 backdrop-blur-sm px-3 py-1.5">
-            {isSubscription ? 'Подписка' : 'Курс'}
-          </span>
-
-          {/* Hover overlay — только десктоп */}
-          <div className="hidden sm:block absolute inset-0 bg-dark/0
-                          transition-colors duration-600 group-hover:bg-dark/40" />
-          <div className="hidden sm:flex absolute inset-0 items-center justify-center
-                          opacity-0 transition-all duration-400 group-hover:opacity-100
-                          translate-y-2 group-hover:translate-y-0">
-            <span className="font-sans text-[10px] tracking-[0.3em] uppercase text-white
-                             border border-white/50 px-5 py-2.5">
-              Подробнее
-            </span>
+            <div className="flex items-baseline justify-between mt-3 pt-2 border-t border-white/[0.08]">
+              <span className="font-serif text-[4.2vw] text-white">
+                {course.price.toLocaleString('ru')} ₽
+              </span>
+              {isSubscription && (
+                <span className="font-sans text-[2.8vw] text-white/30">/мес</span>
+              )}
+              {course.oldPrice && (
+                <span className="font-serif text-[2.8vw] text-white/20 line-through">
+                  {course.oldPrice.toLocaleString('ru')} ₽
+                </span>
+              )}
+            </div>
           </div>
         </div>
 
-        {/* Текст */}
-        {/* Мобиле: справа от фото, flex-col, justify-between */}
-        {/* sm+: под фото, обычный поток */}
-        <div className="flex-1 sm:flex-none
-                        pl-4 py-1 sm:pl-0 sm:pt-6
-                        flex flex-col justify-between sm:block">
+        {/* ── sm+: вертикальная карточка в рамке ── */}
+        <div className="hidden sm:flex flex-col border border-white/10
+                        hover:border-white/25 transition-colors duration-400 overflow-hidden">
 
-          {/* Тип — только мобиле */}
-          <p className="sm:hidden font-sans text-[8px] tracking-[0.35em] uppercase text-dark/30 mb-1">
-            {isSubscription ? 'Подписка' : 'Курс'}
-          </p>
-
-          {/* Название — мобиле */}
-          <h3 className="sm:hidden font-serif text-[4.5vw] text-dark leading-[1.2] tracking-[-0.01em]">
-            {course.title}
-          </h3>
-
-          {/* Название — десктоп (с номером) */}
-          <div className="hidden sm:flex items-start gap-3 mb-3">
-            <span className="font-serif text-xs text-primary/40 mt-0.5 shrink-0">
-              {String(index + 1).padStart(2, '0')}
-            </span>
-            <h3 className="font-serif text-xl md:text-2xl text-dark leading-[1.1] flex-1
-                           tracking-[-0.01em]">
-              {course.title}
-            </h3>
+          {/* Фото */}
+          <div className="relative overflow-hidden" style={{ aspectRatio: '3/4' }}>
+            {imageUrl ? (
+              <Image src={imageUrl} alt={course.title} fill
+                className="object-cover object-center transition-transform duration-[1.1s] ease-out group-hover:scale-[1.06]"
+                sizes="33vw" />
+            ) : (
+              <div className="absolute inset-0" style={{ backgroundColor: '#3B1A23' }} />
+            )}
+            <div className="absolute inset-0 bg-dark/0 group-hover:bg-dark/30 transition-colors duration-500" />
+            <div className="absolute inset-0 flex items-center justify-center
+                            opacity-0 group-hover:opacity-100 transition-opacity duration-400">
+              <span className="font-sans text-[10px] tracking-[0.3em] uppercase text-white
+                               border border-white/40 px-5 py-2.5">
+                Подробнее
+              </span>
+            </div>
           </div>
 
-          {course.shortDescription && (
-            <p className="hidden sm:block font-sans text-[12px] text-dark/40 leading-relaxed mt-2 line-clamp-2">
-              {course.shortDescription}
+          {/* Текстовый блок — всё по центру */}
+          <div className="flex flex-col items-center text-center px-6 py-6 gap-3">
+            <p className="font-sans text-[8px] tracking-[0.4em] uppercase text-white/30">
+              {isSubscription ? 'Подписка' : 'Курс'}
             </p>
-          )}
-
-          {/* Цена */}
-          <div className="mt-auto sm:mt-5 sm:pt-4 sm:border-t sm:border-dark/[0.07]">
-            <span className="font-serif text-[4.5vw] sm:text-xl text-dark">
-              {course.price.toLocaleString('ru')} ₽
-            </span>
-            {isSubscription && (
-              <span className="font-sans text-[8px] sm:text-[10px] text-dark/30 ml-1">/мес</span>
+            <h3 className="font-serif text-xl md:text-2xl text-white/85 leading-[1.1] tracking-[-0.01em]">
+              {course.title}
+            </h3>
+            {course.shortDescription && (
+              <p className="font-sans text-[11px] text-white/35 leading-relaxed line-clamp-2">
+                {course.shortDescription}
+              </p>
             )}
+            <div className="w-8 h-px bg-white/15 mt-1" />
+            <div className="flex items-baseline gap-1.5">
+              <span className="font-serif text-2xl text-white">
+                {course.price.toLocaleString('ru')} ₽
+              </span>
+              {isSubscription && (
+                <span className="font-sans text-[10px] text-white/30">/мес</span>
+              )}
+            </div>
             {course.oldPrice && (
-              <div className="font-sans text-[10px] sm:text-[11px] text-dark/20 line-through">
+              <span className="font-sans text-[11px] text-white/20 line-through -mt-2">
                 {course.oldPrice.toLocaleString('ru')} ₽
-              </div>
+              </span>
             )}
           </div>
         </div>
       </div>
-
-      {/* Разделитель между карточками на мобиле */}
-      <div className="sm:hidden mt-4 h-px bg-dark/[0.07]" />
     </Link>
   )
 }
