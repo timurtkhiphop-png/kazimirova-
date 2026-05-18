@@ -148,16 +148,6 @@ export function Hero({ data, settings, courses = [] }: HeroProps) {
           )}
         </div>
 
-        {/* Низ */}
-        <div className="absolute bottom-0 left-0 right-0 px-6 md:px-16 lg:px-28 pb-10 flex items-center justify-between pointer-events-none">
-          <p className="font-sans text-[9px] tracking-[0.3em] uppercase text-white/20">
-            Прокрутите вниз
-          </p>
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-px h-8 bg-white/15" />
-            <div className="w-1 h-1 rounded-full bg-primary/60" />
-          </div>
-        </div>
       </div>
     </section>
   )
