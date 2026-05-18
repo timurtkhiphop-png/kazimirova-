@@ -119,9 +119,9 @@ export function Hero({ data, settings, courses = [] }: HeroProps) {
                     <Link
                       key={course._id}
                       href={`/courses/${course.slug.current}`}
-                      className="font-sans text-[9px] tracking-[0.25em] uppercase text-white/55
-                                 border border-white/20 px-4 py-2
-                                 hover:border-white/50 hover:text-white
+                      className="font-sans text-[9px] tracking-[0.25em] uppercase text-white
+                                 border border-white/50 px-4 py-2
+                                 hover:border-primary hover:text-primary
                                  transition-all duration-300">
                       {course.title}
                     </Link>
